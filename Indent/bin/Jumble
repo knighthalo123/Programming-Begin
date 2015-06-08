@@ -1,0 +1,15 @@
+
+//  Scott DeRuiter//  October 8, 2012//  Jumble.java//  The user enters list of letters, from 3 to 7 letters long.//  A dictionary text file is opened, and for each word in the
+//  file, the letters in the word are compared against the//  letters in the jumble.  If there is a match, then the word//  is saved to a String array.  Once the text file is processed,
+//  all of the matching words are printed.   import java.util.Scanner;public class Jumble			{	private String input;	private String [] word;			private int count;public Jumble ( ){	count = 0;input = new String("");word = new String [350];
+for(int i = 0;i < word.length;i++){			word[i] = new String("");}}			public static void main (String [] args){Jumble run = new Jumble();run.getInput();run.processFile();
+run.printList();}					public void getInput ( ){System.out.println("\n\n\n\n");		do	{
+input = Prompt.getString("\nPlease enter your jumble, " +"from 3 to 7 letters, no spaces -> ");input = input.toLowerCase();			}while(input.length() < 3 || input.length() > 7);
+
+}public void processFile ( ){Scanner infile = OpenFile.open("wordlist.txt");String temp = new String("");			while(infile.hasNext()){temp = infile.nextLine();if(jumbleMatch(temp))
+{word[count] = temp;		count++;}}		}public boolean jumbleMatch (String temp){if(temp.length() < 3 || temp.length() > 7)				{return false;}String copy = new String(input);
+boolean lettermatch;	for(int i = 0;i < temp.length();i++){lettermatch = false;			for(int j = 0;j < copy.length();j++)		{if(temp.charAt(i) == copy.charAt(j)){
+		lettermatch = true;		copy = copy.substring(0,j) + copy.substring(j+1);	j = copy.length();}}if(!lettermatch){return false;}}return true;}public void printList ( ){
+System.out.println("\n\n\n\n");				for(int i = 3;i <= 7;i++){printGroup(i);		}System.out.println("\n\n\n\n");}	public void printGroup (int value){			int counter = 0;
+System.out.println("Words of length: " + value);for (int i = 0;i < count;i++){		if(word[i].length() == value){			System.out.print(word[i] + "   ");counter++;
+if(counter % 10 == 0){System.out.println();}}}System.out.println("\n\n");}}
